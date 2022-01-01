@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Connect</title>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+	<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+	<style type="text/css">
+		body {
+			width: 60%;
+			margin: auto;
+			margin-top: 10%;
+			font-size: 2em;
+		}
+
+		html {
+			background-image: url('/images/editor-background.png');
+			background-position: center;
+			background-size: cover;
+			background-attachment: fixed;
+		}
+
+		#editor {
+			height: 100vh;
+		}
+
+		.container-form-btn {
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: -moz-box;
+			display: -ms-flexbox;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+		}
+
+		.wrap-form-btn {
+			width: 30%;
+			display: block;
+			position: relative;
+			z-index: 1;
+			border-radius: 25px;
+			overflow: hidden;
+			margin: 0 auto;
+
+			box-shadow: 0 5px 30px 0px rgba(3, 216, 222, 0.2);
+			-moz-box-shadow: 0 5px 30px 0px rgba(3, 216, 222, 0.2);
+			-webkit-box-shadow: 0 5px 30px 0px rgba(3, 216, 222, 0.2);
+			-o-box-shadow: 0 5px 30px 0px rgba(3, 216, 222, 0.2);
+			-ms-box-shadow: 0 5px 30px 0px rgba(3, 216, 222, 0.2);
+		}
+
+		.form-bgbtn {
+			position: absolute;
+			z-index: -1;
+			width: 300%;
+			height: 100%;
+			background: #a64bf4;
+			background: -webkit-linear-gradient(right, #00dbde, #fc00ff, #00dbde, #fc00ff);
+			background: -o-linear-gradient(right, #00dbde, #fc00ff, #00dbde, #fc00ff);
+			background: -moz-linear-gradient(right, #00dbde, #fc00ff, #00dbde, #fc00ff);
+			background: linear-gradient(right, #00dbde, #fc00ff, #00dbde, #fc00ff);
+			top: 0;
+			left: -100%;
+
+			-webkit-transition: all 0.4s;
+			-o-transition: all 0.4s;
+			-moz-transition: all 0.4s;
+			transition: all 0.4s;
+		}
+
+		.form-btn {
+			font-family: Poppins-Medium;
+			font-size: 16px;
+			color: #fff;
+			line-height: 1.2;
+			text-transform: uppercase;
+
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: -moz-box;
+			display: -ms-flexbox;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			padding: 0 20px;
+			width: 100%;
+			height: 50px;
+		}
+
+		.wrap-form-btn:hover .form-bgbtn {
+			left: 0;
+		}
+
+		button {
+			outline: none !important;
+			border: none;
+			background: transparent;
+		}
+
+		button:hover {
+			cursor: pointer;
+		}
+	</style>
+</head>
+
+<body>
+	<% if(!post){ %>
+	<form method="POST" action="/post/blog/create">
+		<input type="text" name="title" placeholder="Write an Attractive Title Here"
+			style="width: 100%; text-align: center; font-size: x-large; height: 50px; background-color: transparent; border: 1px solid white;">
+		<div id="editor">
+		</div>
+		<input type="text" name="body" style="display: none;">
+		<div class="container-form-btn">
+			<div class="wrap-form-btn">
+				<div class="form-bgbtn"></div>
+				<button class="form-btn" type="submit">
+					Publish
+				</button>
+			</div>
+		</div>
+	</form>
+	<% }else{ %>
+	<form method="POST" action="/post/blog/updatepost">
+		<input value="<%= post.title %>" type="text" name="title" placeholder="Write an Attractive Title Here"
+			style="width: 100%; text-align: center; font-size: x-large; height: 50px; background-color: transparent; border: 1px solid white;">
+		<div id="editor">
+			<%- post.body %>
+		</div>
+		<input type="text" name="body" style="display: none;">
+		<div class="container-form-btn">
+			<div class="wrap-form-btn">
+				<div class="form-bgbtn"></div>
+				<button class="form-btn" type="submit">
+					Update
+				</button>
+			</div>
+		</div>
+		<input type="text" name="id" value="<%= post._id %>" style="display: none;">
+	</form>
+	<% } %>
+
+
+	<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+	<script>
+		var quill = new Quill('#editor', {
+			theme: 'snow'
+		});
+
+		var form = document.querySelector('form');
+		form.onsubmit = function () {
+			// Populate hidden form on submit
+			var justHtml = quill.root.innerHTML;
+			console.log(justHtml);
+			var about = document.querySelector('input[name=body]');
+			about.value = justHtml;
+			return true;
+		};
+
+
+		// window.onload = function () {
+			// $('.form-btn').on('click', function () {
+			// 	var justHtml = quill.root.innerHTML;
+			// 	console.log(justHtml);
+
+
+
+			// 	var xhttp = new XMLHttpRequest();
+			// 	xhttp.onreadystatechange = function () {
+			// 		if (this.readyState == 4 && this.status == 200) {
+			// 			alert(this.responseText);
+			// 		}
+			// 	};
+			// 	var post = [{
+			// 		'title': 'First Post',
+			// 		'body': justHtml
+			// 	}]
+			// 	xhttp.open("POST", "http://localhost:3000/post/api/create", true);
+			// 	xhttp.setRequestHeader("Content-type", "application/json");
+			// 	xhttp.send(post);
+			// });
+
+
+
+
+		// }
+
+	</script>
+</body>
+
+</html>

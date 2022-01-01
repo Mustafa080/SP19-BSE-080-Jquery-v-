@@ -1,0 +1,128 @@
+body {
+    text-align: center;
+
+    background: url('../images/background.jpg');
+    background-size: cover;
+    background-position: center; 
+    
+    background-attachment: fixed;
+}
+
+/* .navbar{
+    background-color: transparent;
+    border-color: transparent;
+} */
+
+.img-thumbnail{
+    width: 600px;
+    height: 400px;
+}
+
+@media
+only screen and (max-width: 768px){
+    .col-lg-8 {
+        display: none;
+    }
+}
+
+img{
+    align-self: auto;
+    align-content: center;
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+}
+
+.nopadding > div[class^="col-"] {
+    padding-right: 0;
+    padding-left: 0;
+    margin: 10px 10px;
+}
+
+.row{
+    margin: auto;
+    overflow: hidden;
+}
+
+footer{
+    background-color: black;
+    height: 200px;
+    opacity: 0.7;
+
+}
+
+.green{
+    background: url('../images/green.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+}
+
+.padding-0{
+    padding-right:0;
+    padding-left:0;
+}
+
+.col-lg-8{
+    padding: 0px 0px;
+}
+
+div{
+    margin: 0px 0px;
+}
+
+.top{
+    height: 100vh;
+}
+
+#nav{
+    opacity: 0.8;
+}
+
+
+.section{
+    /* width: 80%; */
+    margin: auto;
+    /* padding-top: 40px; */
+    padding-bottom: 40px;
+    overflow: hidden;
+    font-family: 'Indie Flower', cursive;
+}
+
+.row p{
+    font-size: 1.5em;
+}
+
+button > a, button>a:hover{
+    color: black;
+}
+
+body,
+html {
+    width: 100%;
+    height: 100%;
+    font-family: "Lato";
+    color: white;
+}
+
+
+h1 {
+	font-weight: 700;
+    font-size: 5em;
+    text-transform: uppercase;
+}
+
+
+.content{
+	padding-top: 25%;
+	text-align: center;
+    text-shadow: 0px 4px 3px rgba(0,0,0,0.4),
+                 0px 8px 13px rgba(0,0,0,0.1),
+                 0px 18px 23px rgba(0,0,0,0.1);
+}
+
+hr {
+    width: 400px;
+    border-top: 1px solid #f8f8f8;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+}
